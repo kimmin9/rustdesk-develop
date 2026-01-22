@@ -71,7 +71,8 @@ jobs:
       # --- 3. RustDesk 빌드 (이 단계에서 exe가 생성됨) ---
       - name: Build rustdesk
         run: |
-          python3 .\build.py --flutter
+          # --skip-portable-pack 옵션을 추가하여 에러가 발생하는 구간을 건너뜁니다.
+          python3 .\build.py --flutter --skip-portable-pack
         shell: pwsh
 
       # --- 4. Inno Setup을 이용한 설치 파일(.exe) 제작 ---
