@@ -11,12 +11,22 @@ SolidCompression=yes
 ; 아이콘 에러 방지를 위해 확실히 주석 처리
 ;SetupIconFile=res\logo.ico
 
-[Files]
+; [Files]
 ; 빌드 스크립트 특성상 루트 폴더에 exe가 있을 확률이 높으므로 아래와 같이 수정합니다.
 ; 만약 target 폴더에 있다면 "target\release\rustdesk.exe"로 다시 바꾸면 됩니다.
-Source: "rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; Flutter 빌드 시 필요한 DLL들이 있다면 함께 포함해야 실행됩니다.
-Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+
+[Files]
+; 1순위: 루트 폴더에서 확인
+Source: "rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
+; 2순위: target\release 폴더에서 확인 (이게 실제 경로일 확률이 높습니다)
+Source: "target\release\rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
+; 필요한 DLL들도 마찬가지로 처리
+Source: "target\release\*.dll"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]
 Name: "{group}\MyCustomRustDesk"; Filename: "{app}\rustdesk.exe"
