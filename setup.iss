@@ -20,13 +20,10 @@ SolidCompression=yes
 
 
 [Files]
-; 1순위: 루트 폴더에서 확인
-Source: "rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-; 2순위: target\release 폴더에서 확인 (이게 실제 경로일 확률이 높습니다)
-Source: "target\release\rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-; 필요한 DLL들도 마찬가지로 처리
-Source: "target\release\*.dll"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
+; Flutter 빌드 결과물 경로를 정확하게 지정합니다.
+Source: "flutter\build\windows\x64\runner\Release\rustdesk.exe"; DestDir: "{app}"; Flags: ignoreversion
+; 실행에 필요한 DLL들도 같은 폴더에 있으므로 함께 포함합니다.
+Source: "flutter\build\windows\x64\runner\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\MyCustomRustDesk"; Filename: "{app}\rustdesk.exe"
