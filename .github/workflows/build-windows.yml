@@ -75,6 +75,11 @@ jobs:
           python3 .\build.py --flutter --skip-portable-pack
         shell: pwsh
 
+      - name: Check build output
+        run: |
+          ls -Recurse -Include rustdesk.exe
+        shell: pwsh
+        
       # --- 4. Inno Setup을 이용한 설치 파일(.exe) 제작 ---
       - name: Install Inno Setup
         run: choco install innosetup
